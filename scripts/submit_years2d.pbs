@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#PBS -N mtpr2d
+#PBS -A UNYU0024
+#PBS -l select=1:ncpus=1:mpiprocs=1:mem=80GB
+#PBS -l walltime=08:00:00
+#PBS -q casper
+#PBS -j oe
+
+export TMPDIR=${SCRATCH}/temp
+mkdir -p ${TMPDIR}
+
+### Load Conda/Python module and activate NPL environment
+module load conda
+conda activate npl
+
+### Run analysis script
+python z200script.py $YEAR
