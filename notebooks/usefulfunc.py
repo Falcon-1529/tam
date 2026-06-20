@@ -693,7 +693,25 @@ def plot_corr_with_significance(ax, corr_da, tau, total_days=16059, alpha=0.05,
     ax.set_ylabel(ylabel, fontsize=11)
 
     return cf
+
+# Latitude averaging function #
+def latavg(data, lat_min, lat_max):
+        # Ensure lat_max > lat_min
+    lat_lo, lat_hi = min(lat_min, lat_max), max(lat_min, lat_max)
     
+    # Select latitude band (order doesn't matter with min/max)
+    data_slice = data.sel(latitude=slice(lat_hi, lat_lo))
+    
+    # Create weights (cos of latitude)
+    weights = np.cos(np.deg2rad(data_slice.latitude))
+    
+    # Use xarray's weighted method
+    weighted_avg = data_slice.weighted(weights).mean(dim='latitude')
+    
+    return weighted_avg
+
+
+
 ################################################################################################################
 # Tyler's functions ( provided by Tyler Greiner, ttg2015@nyu.edu) Functions to extract precip from mtpr. More generally, convert forecast arrays into single time dim ds
 ############################################################################################################
