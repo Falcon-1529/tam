@@ -315,6 +315,7 @@ def level_lag_corr(v850, vp):
     max_lag = 40
     lags = np.arange(-max_lag, max_lag + 1)
 
+    # this handles the surface case e.g. tsp.ndim means that it only has one level
     if tsp.ndim == 1:
         correlations = np.zeros(len(lags))
         corr = correlate(tsp, ts850, mode='same', method='auto')
@@ -361,7 +362,7 @@ def lat_lag_corr(v850, vp):
     max_lag = 40
     lags = np.arange(-max_lag, max_lag + 1)
     
-    correlations = np.zeros((len(latitudes), len(lags)))
+    correlations = np.zeros((len(latitudes), len(lags))) # just a blank zero array of the dims
     
     for i in range(len(latitudes)):
         corr = correlate(tsp[i, :], ts850, mode='same', method='auto')
@@ -385,7 +386,7 @@ def lat_lag_corr(v850, vp):
 ##########################################################
 ##########################################################
 
-# full 3d corr
+# full 3d corr of the correlation matrix
 def lag_corr(v850, vp):
     """
     Compute lag correlations between a reference timeseries (v850) and 
@@ -401,7 +402,7 @@ def lag_corr(v850, vp):
     max_lag = 40
     lags = np.arange(-max_lag, max_lag + 1)
     
-    correlations = np.zeros((len(levels), len(latitudes), len(lags)))
+    correlations = np.zeros((len(levels), len(latitudes), len(lags))) # zeros of the dims
     
     for k in range(len(levels)):
         for i in range(len(latitudes)):
@@ -610,13 +611,13 @@ def compute_significance_mask(corr_da, N_eff, alpha=0.05):
     xr.DataArray (bool), same dims as corr_da
     """
     r   = corr_da.values
-    df  = N_eff - 2
+    df  = N_eff - 2 # minus 2 to the degrees of freedom because pearson correlation
 
-    # Clip to avoid division by zero at r = ±1
+    # Clip to avoid division by zero at r = \pm 1
     r_safe = np.clip(r, -0.9999, 0.9999)
 
-    t_stat = r_safe * np.sqrt(df / (1 - r_safe**2))
-    p_vals = 2 * stats.t.sf(np.abs(t_stat), df=df)
+    t_stat = r_safe * np.sqrt(df / (1 - r_safe**2)) # t statistic calc
+    p_vals = 2 * stats.t.sf(np.abs(t_stat), df=df)  # get p values 
 
     return xr.DataArray(
         p_vals < alpha,
@@ -694,7 +695,7 @@ def plot_corr_with_significance(ax, corr_da, tau, total_days=16059, alpha=0.05,
 
     return cf
 
-# Latitude averaging function #
+# Latitude weighted averaging function #
 def latavg(data, lat_min, lat_max):
         # Ensure lat_max > lat_min
     lat_lo, lat_hi = min(lat_min, lat_max), max(lat_min, lat_max)
