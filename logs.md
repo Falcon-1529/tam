@@ -16,7 +16,7 @@ Calculated the TEM framework pressure velocity and correlated with TAM for DJF a
 
 See notebooks/temanalysis.ipynb
 
-![w*300_seasonal_correlation](figs_anims/W*300_corr_seasonal.png)
+![w*300_seasonal_correlation](figs_anims/W*(300)_corr_seasonal.png)
 
 ## 2026-06-27
 
