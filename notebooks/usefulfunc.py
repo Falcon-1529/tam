@@ -712,6 +712,10 @@ def latavg(data, lat_min, lat_max):
     return weighted_avg
 
 
+# ------------- seasonal functions ---------------- #
+
+
+
 
 ################################################################################################################
 # Tyler's functions ( provided by Tyler Greiner, ttg2015@nyu.edu) Functions to extract precip from mtpr. More generally, convert forecast arrays into single time dim ds
