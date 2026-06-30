@@ -1,7 +1,7 @@
 ## 2026-05-28
 
 ### $\omega$ annual cycle analysis and projections of TAM correlation anoms
-Investigated annual cycles of $\omega$ at 300 and 500 hPa, projected onto the correlation anomalies of $\omega$(300) and (500) x TAM.
+Investigated annual cycles of $\omega$ at 300 and 850 hPa, projected onto the correlation anomalies of $\omega$(300) and (850) x TAM.
 See notebooks/z850indexanalysis.ipynb
 
 Added significance test function to calculate and plot stippling on non-sig contour areas on the cross-correlation plots. 
