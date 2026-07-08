@@ -507,7 +507,7 @@ def butter1yhighp(orig, order):
     if filtda.ndim == 1:
         high_freq_vals = filtfilt(b, a, filtda)
     else:
-        time_axis = orig.dims.index('alltime')
+        time_axis = orig.dims.index('alltime') # this is very important!
         high_freq_vals = filtfilt(b, a, filtda, axis=time_axis)
     
     high_freq = xr.DataArray(
